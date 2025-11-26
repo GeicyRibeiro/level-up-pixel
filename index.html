@@ -11,23 +11,65 @@
     --accent2:#990000;
     --muted:#9aa1a8;
   }
-  html,body{height:100%;margin:0;font-family: "Courier New", Courier, monospace;background: linear-gradient(180deg,#050505 0%, #0b0b0c 100%);color:var(--accent);display:flex;align-items:center;justify-content:center;}
+  html,body{
+    height:100%;margin:0;
+    font-family:"Courier New", Courier, monospace;
+    background: linear-gradient(180deg,#050505 0%, #0b0b0c 100%);
+    color:var(--accent);
+    display:flex;align-items:center;justify-content:center;
+  }
   .container{width:100%;max-width:780px;padding:28px;box-sizing:border-box;text-align:center;}
-  .pixel-title{font-size:48px;letter-spacing:6px;margin:6px 0;line-height:1;color:var(--accent2);text-shadow:
-    -2px -2px 0 #111, 2px 2px 0 #001, 4px 4px 0 rgba(0,0,0,0.6); font-weight:700;}
+  .pixel-title{
+    font-size:48px;letter-spacing:6px;margin:6px 0;line-height:1;
+    color:var(--accent2);
+    text-shadow:-2px -2px 0 #111, 2px 2px 0 #001, 4px 4px 0 rgba(0,0,0,0.6);
+    font-weight:700;
+  }
   .subtitle{color:var(--muted);margin-bottom:18px;}
-  .screen{background: repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0 2px, transparent 2px 8px), 
-    linear-gradient(180deg, rgba(10,10,12,0.6), rgba(8,8,10,0.8)); padding:20px;border-radius:12px; box-shadow: 0 8px 30px rgba(0,0,0,0.7);}
-  /* pixel heart made with grid of squares */
-  .pixel-heart{width:160px;margin:12px auto 10px;display:grid;grid-template-columns:repeat(8,20px);grid-auto-rows:20px;gap:4px;justify-content:center;}
+  .screen{
+    background: repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0 2px, transparent 2px 8px),
+               linear-gradient(180deg, rgba(10,10,12,0.6), rgba(8,8,10,0.8));
+    padding:20px;border-radius:12px; box-shadow: 0 8px 30px rgba(0,0,0,0.7);
+  }
+
+  /* === coração em pixel (8x8) === */
+  /* wrapper que pulsa o coração */
+  .heart-wrap{
+    display:inline-block;
+    animation: beat 1100ms ease-in-out infinite;
+    will-change: transform, filter;
+  }
+  @keyframes beat{
+    0%   { transform: scale(1);    filter: drop-shadow(0 0 0 rgba(238,174,0,0)); }
+    25%  { transform: scale(1.08); filter: drop-shadow(0 0 10px rgba(238,174,0,0.25)); }
+    40%  { transform: scale(1);    filter: drop-shadow(0 0 0 rgba(238,174,0,0)); }
+    60%  { transform: scale(1.06); filter: drop-shadow(0 0 8px rgba(238,174,0,0.2)); }
+    100% { transform: scale(1);    filter: drop-shadow(0 0 0 rgba(238,174,0,0)); }
+  }
+  /* respeita quem prefere menos animação */
+  @media (prefers-reduced-motion: reduce){
+    .heart-wrap{ animation: none; }
+  }
+
+  .pixel-heart{
+    width:160px;margin:12px auto 10px;
+    display:grid;grid-template-columns:repeat(8,20px);grid-auto-rows:20px;gap:4px;justify-content:center;
+  }
   .pixel-heart div{width:20px;height:20px;box-shadow: inset 0 -2px 0 rgba(0,0,0,0.25);}
   .on{background:var(--accent2);filter:drop-shadow(0 2px 0 rgba(0,0,0,0.5));}
   .off{background:transparent;}
+
   .message{font-size:18px;color:#fff;margin:8px 0 18px;}
-  .start-btn{display:inline-block;padding:12px 24px;border-radius:8px;background:linear-gradient(180deg,#3aff8a,#1dbf55);color:#022;font-weight:700;text-decoration:none;cursor:pointer;border:4px solid rgba(0,0,0,0.25);box-shadow:0 6px 0 rgba(0,0,0,0.4);transform:translateY(0);transition:transform .12s ease;}
+  .start-btn{
+    display:inline-block;padding:12px 24px;border-radius:8px;
+    background:linear-gradient(180deg,#3aff8a,#1dbf55);color:#022;font-weight:700;text-decoration:none;cursor:pointer;
+    border:4px solid rgba(0,0,0,0.25);box-shadow:0 6px 0 rgba(0,0,0,0.4);
+    transform:translateY(0);transition:transform .12s ease;
+  }
   .start-btn:active{transform:translateY(3px);box-shadow:0 3px 0 rgba(0,0,0,0.4);}
   .info{color:var(--muted);font-size:13px;margin-top:12px;}
   .pixel-style{font-family: monospace;background: linear-gradient(90deg,#101315,#0a0b0c);padding:8px;border-radius:6px;display:inline-block;color:var(--accent);}
+
   /* confetti */
   .confetti{position:fixed;inset:0;pointer-events:none;display:none;}
   .confetti span{position:absolute;width:10px;height:14px;opacity:0;animation:fall 2200ms linear forwards;transform-origin:center;}
@@ -35,11 +77,13 @@
     0%{opacity:1; transform: translateY(-20px) rotate(0deg) scale(1);}
     100%{opacity:1; transform: translateY(520px) rotate(720deg) scale(1);}
   }
+
   /* certificate */
   .certificate{margin-top:18px;background:#fff;color:#111;padding:14px;border-radius:8px;text-align:left;display:none;}
   .cert-title{font-weight:800;color:#222;font-size:18px;margin-bottom:6px;}
   .cert-line{font-size:14px;margin:6px 0;color:#333;}
   .print-btn{margin-top:8px;display:inline-block;padding:8px 12px;border-radius:6px;background:#222;color:#fff;text-decoration:none;}
+
   /* small screens */
   @media (max-width:420px){
     .pixel-title{font-size:32px;}
@@ -51,17 +95,21 @@
 <div class="container">
   <div class="screen">
     <div class="pixel-title">LEVEL UP!</div>
-    <div class="subtitle">Pixel Edition — Parabéns por desbloquear 2025</div>
-    <div class="pixel-heart" aria-hidden="true">
-      <!-- 8x8 grid (use classes "on" for colored pixels) -->
-      <div class="on"></div><div class="on"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="on"></div><div class="on"></div>
-      <div class="on"></div><div class="on"></div><div class="on"></div><div class="off"></div><div class="off"></div><div class="on"></div><div class="on"></div><div class="on"></div>
-      <div class="off"></div><div class="on"></div><div class="on"></div><div class="on"></div><div class="on"></div><div class="on"></div><div class="on"></div><div class="off"></div>
-      <div class="off"></div><div class="off"></div><div class="on"></div><div class="on"></div><div class="on"></div><div class="on"></div><div class="off"></div><div class="off"></div>
-      <div class="off"></div><div class="off"></div><div class="off"></div><div class="on"></div><div class="on"></div><div class="off"></div><div class="off"></div><div class="off"></div>
-      <div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="on"></div><div class="off"></div><div class="off"></div><div class="off"></div>
-      <div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div>
-      <div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div>
+    <div class="subtitle">Pixel Edition — Parabéns por desbloquear 2026</div>
+
+    <!-- wrapper que pulsa -->
+    <div class="heart-wrap" aria-hidden="true">
+      <div class="pixel-heart">
+        <!-- 8x8 grid (use classes "on" para pixels acesos) -->
+        <div class="on"></div><div class="on"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="on"></div><div class="on"></div>
+        <div class="on"></div><div class="on"></div><div class="on"></div><div class="off"></div><div class="off"></div><div class="on"></div><div class="on"></div><div class="on"></div>
+        <div class="off"></div><div class="on"></div><div class="on"></div><div class="on"></div><div class="on"></div><div class="on"></div><div class="on"></div><div class="off"></div>
+        <div class="off"></div><div class="off"></div><div class="on"></div><div class="on"></div><div class="on"></div><div class="on"></div><div class="off"></div><div class="off"></div>
+        <div class="off"></div><div class="off"></div><div class="off"></div><div class="on"></div><div class="on"></div><div class="off"></div><div class="off"></div><div class="off"></div>
+        <div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="on"></div><div class="off"></div><div class="off"></div><div class="off"></div>
+        <div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div>
+        <div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div>
+      </div>
     </div>
 
     <div class="message">🎉 <strong>Parabéns, jogador(a)!</strong> Você completou sua fase no 5º ano. Prepare-se para novas missões!</div>
@@ -72,10 +120,10 @@
       <div class="message" style="color:var(--accent2)">✨ Você desbloqueou: <strong>LEVEL UP 2026</strong></div>
       <div class="info">Mostre isso com orgulho — a professora Gêiciane acredita em você.</div>
       <div class="certificate" id="cert">
-              <div class="cert-line">🌟 Parabéns por concluir este ciclo escolar!
-           Você avançou, aprendeu, cresceu e mostrou que é capaz de ir ainda mais longe.
-          Continue acreditando no seu potencial e subindo de nível — o próximo capítulo 
-           da sua jornada será ainda mais incrível! 💫🎮❤️</div>
+        <div class="cert-line">🌟 Parabéns por concluir este ciclo escolar!
+        Você avançou, aprendeu, cresceu e mostrou que é capaz de ir ainda mais longe.
+        Continue acreditando no seu potencial e subindo de nível — o próximo capítulo
+        da sua jornada será ainda mais incrível! 💫🎮❤️</div>
       </div>
     </div>
 
@@ -89,7 +137,6 @@
   const after = document.getElementById('after');
   const confettiWrap = document.getElementById('confetti');
   const cert = document.getElementById('cert');
-  const printCert = document.getElementById('printCert');
 
   function spawnConfetti(){
     confettiWrap.innerHTML='';
@@ -111,7 +158,6 @@
   }
 
   startBtn.addEventListener('click', function(){
-    // small pulse and then show after content
     startBtn.disabled = true;
     startBtn.innerText = 'Carregando...';
     setTimeout(()=>{
