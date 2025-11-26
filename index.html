@@ -3,105 +3,150 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LEVEL UP 2026</title>
+  <title>Pixel Heart Game</title>
+
   <style>
+    /* Fonte estilo 8-bit */
+    @font-face {
+      font-family: "Pixel";
+      src: local("Pixel"), url("https://fonts.cdnfonts.com/s/68114/Pixellari.woff") format("woff");
+    }
+
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #1e1e2f, #2d2d44);
+      font-family: "Pixel", monospace;
+      background: #1a1a1a;
       color: #fff;
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-    }
-
-    .container {
       text-align: center;
-      background: rgba(255, 255, 255, 0.1);
-      padding: 30px;
-      border-radius: 12px;
+    }
+
+    .game-box {
+      background: #222;
+      border: 4px solid #fff;
       width: 90%;
-      max-width: 400px;
-      backdrop-filter: blur(10px);
+      max-width: 420px;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ff4f8b;
     }
 
-    h1 {
-      margin-bottom: 10px;
-      font-size: 26px;
+    /* ❤️ Coração pixelado */
+    .pixel-heart {
+      position: relative;
+      width: 100px;
+      height: 90px;
+      margin: 0 auto 30px auto;
     }
 
+    .pixel-heart::before,
+    .pixel-heart::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      width: 50px;
+      height: 80px;
+      background: #ff3166;
+      border-radius: 25px 25px 0 0;
+    }
+
+    .pixel-heart::before {
+      left: 0;
+      transform: rotate(-45deg);
+      transform-origin: bottom right;
+    }
+
+    .pixel-heart::after {
+      right: 0;
+      transform: rotate(45deg);
+      transform-origin: bottom left;
+    }
+
+    /* Input pixelado */
     input {
       width: 90%;
       padding: 10px;
-      font-size: 16px;
-      border-radius: 8px;
-      border: none;
+      font-size: 18px;
+      border: 3px solid #fff;
+      background: #000;
+      color: #fff;
       outline: none;
-      margin-top: 20px;
+      margin-bottom: 20px;
+      font-family: "Pixel";
     }
 
-    button {
-      margin-top: 20px;
+    /* Botão pixel estilo jogo */
+    .btn {
       width: 100%;
-      padding: 12px;
-      font-size: 18px;
-      border: none;
-      border-radius: 8px;
+      padding: 12px 0;
+      font-size: 20px;
       background: #ffcc00;
       color: #000;
+      border: 3px solid #fff;
       cursor: pointer;
-      font-weight: bold;
-      transition: 0.2s;
+      font-family: "Pixel";
+      transition: 0.15s;
     }
 
-    button:hover {
-      background: #ffd633;
+    .btn:hover {
+      background: #ffe066;
     }
 
+    /* Caixa de diálogo pixel */
     .message-box {
-      margin-top: 25px;
-      padding: 20px;
       background: #fff;
       color: #000;
-      border-radius: 10px;
+      padding: 15px;
+      border: 4px solid #000;
+      margin-top: 25px;
       display: none;
+      border-radius: 6px;
       font-size: 18px;
-      line-height: 1.4;
+      box-shadow: 0 0 8px #fff;
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <h1>LEVEL UP 2026 🎮</h1>
-    <p>Digite seu nome e clique em START</p>
+  <div class="game-box">
+
+    <div class="pixel-heart"></div>
+
+    <h2>LEVEL UP 2026</h2>
+    <p>Digite seu nome:</p>
 
     <input type="text" id="nameInput" placeholder="Seu nome">
 
-    <button id="startBtn">START</button>
+    <button class="btn" id="startBtn">START</button>
 
     <div id="msgBox" class="message-box"></div>
+
   </div>
 
   <script>
+    const nameInput = document.getElementById("nameInput");
     const startBtn = document.getElementById("startBtn");
     const msgBox = document.getElementById("msgBox");
-    const nameInput = document.getElementById("nameInput");
 
     startBtn.addEventListener("click", () => {
       const name = nameInput.value.trim();
 
       if (name === "") {
-        alert("Digite seu nome para começar!");
+        alert("Digite seu nome!");
         return;
       }
 
       msgBox.style.display = "block";
-      msgBox.innerHTML = `
-        <strong>${name}</strong>, você acaba de subir mais um nível! 🚀<br><br>
-        Continue evoluindo, aprendendo e acreditando no seu potencial.<br>
-        2026 vai ser O SEU ANO! 🌟🔥
+    msgBox.innerHTML = `
+        ❤️ <strong>${name}</strong> subiu de nível!<br><br>
+        Continue firme, forte e cheio(a) de coragem.<br>
+        2026 será incrível porque você está evoluindo! ✨<br><br>
+        A Prof. Gêiciane está muito orgulhosa de você.<br>
+        A partir daqui, sua vida terá novos desafios e mudanças,<br>
+        mas acredite sempre no seu potencial, e você conseguirá conquistar tudo! 💛
       `;
     });
   </script>
