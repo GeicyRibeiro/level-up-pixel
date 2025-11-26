@@ -1,213 +1,110 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>LEVEL UP! — Pixel Edition</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LEVEL UP 2026</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #1e1e2f, #2d2d44);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
 
-<!-- jsPDF + html2canvas -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    .container {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 400px;
+      backdrop-filter: blur(10px);
+    }
 
-<style>
-  :root{
-    --bg:#0b0b0c;
-    --accent:#6affb3;
-    --accent2:#ffcf4d;
-    --muted:#9aa1a8;
-    --heart:#ff2b2b;
-  }
+    h1 {
+      margin-bottom: 10px;
+      font-size: 26px;
+    }
 
-  html,body{
-    height:100%;
-    margin:0;
-    font-family: "Courier New", Courier, monospace;
-    background: linear-gradient(180deg,#050505 0%, #0b0b0c 100%);
-    color:var(--accent);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-  }
+    input {
+      width: 90%;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      margin-top: 20px;
+    }
 
-  .container{
-    width:100%;
-    max-width:780px;
-    padding:28px;
-    box-sizing:border-box;
-    text-align:center;
-  }
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      background: #ffcc00;
+      color: #000;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.2s;
+    }
 
-  .pixel-title{
-    font-size:48px;
-    letter-spacing:6px;
-    margin:6px 0;
-    line-height:1;
-    color:var(--accent2);
-    text-shadow:-2px -2px 0 #111, 2px 2px 0 #001, 4px 4px 0 rgba(0,0,0,0.6);
-    font-weight:700;
-  }
+    button:hover {
+      background: #ffd633;
+    }
 
-  .subtitle{color:var(--muted);margin-bottom:18px;}
-
-  .screen{
-    background: repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0 2px, transparent 2px 8px),
-    linear-gradient(180deg, rgba(10,10,12,0.6), rgba(8,8,10,0.8));
-    padding:20px;
-    border-radius:12px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.7);
-  }
-
-  .message{font-size:18px;color:#fff;margin:8px 0 18px;}
-
-  .start-btn{
-    display:inline-block;
-    padding:14px 28px;
-    border-radius:8px;
-    background:linear-gradient(180deg,#47ff9c,#1ebf55);
-    color:#022;
-    font-size:18px;
-    font-weight:700;
-    text-decoration:none;
-    cursor:pointer;
-    border:4px solid rgba(0,0,0,0.25);
-    box-shadow:0 6px 0 rgba(0,0,0,0.4);
-  }
-
-  .print-btn{
-    margin-top:12px;
-    display:inline-block;
-    padding:10px 16px;
-    border-radius:6px;
-    background:#222;
-    color:#fff;
-    cursor:pointer;
-    text-decoration:none;
-  }
-
-  /* CERTIFICADO PARA PDF */
-  .certificate{
-    margin-top:18px;
-    background:#fff;
-    color:#111;
-    padding:30px;
-    border-radius:8px;
-    display:none;
-    width:100%;
-    max-width:700px;
-    margin:auto;
-    text-align:center;
-    border: 10px solid #000;
-    border-image: repeating-linear-gradient(
-      45deg,
-      #000 0 10px,
-      #ff3b3b 10px 20px,
-      #ffcf4d 20px 30px,
-      #6affb3 30px 40px,
-      #74c0fc 40px 50px,
-      #ff8fab 50px 60px,
-      #d6a2ff 60px 70px
-    ) 10;
-  }
-
-  .cert-title{
-    font-size:38px;
-    margin-bottom:4px;
-    text-shadow:2px 2px 0 #6affb3;
-  }
-
-  .cert-line{
-    margin:10px 0;
-    font-size:18px;
-  }
-
-  .cert-msg{
-    margin-top:20px;
-    font-size:17px;
-    padding:20px;
-    border:4px dashed #222;
-    background:#f4f4f4;
-    text-align:left;
-  }
-</style>
+    .message-box {
+      margin-top: 25px;
+      padding: 20px;
+      background: #fff;
+      color: #000;
+      border-radius: 10px;
+      display: none;
+      font-size: 18px;
+      line-height: 1.4;
+    }
+  </style>
 </head>
 <body>
 
-<div class="container">
-  <div class="screen">
+  <div class="container">
+    <h1>LEVEL UP 2026 🎮</h1>
+    <p>Digite seu nome e clique em START</p>
 
-    <div class="pixel-title">LEVEL UP!</div>
-    <div class="subtitle">Pixel Edition — Parabéns por desbloquear 2026</div>
+    <input type="text" id="nameInput" placeholder="Seu nome">
 
-    <div>
-      <label for="studentName" style="color:var(--accent2); font-size: 18px; display: block;">Digite seu nome:</label>
-      <input type="text" id="studentName" placeholder="Nome do aluno" style="padding:10px; font-size:16px; border-radius:6px; border:2px solid var(--accent); width: 80%; margin-bottom: 20px;">
-    </div>
+    <button id="startBtn">START</button>
 
-    <div class="message">🎉 <strong>Parabéns, jogador(a)!</strong> Você completou sua fase no 5º ano. Prepare-se para novas missões!</div>
-
-    <button id="startBtn" class="start-btn">▶ START</button>
-
-    <div id="after" style="display:none">
-      <div class="message" style="color:var(--accent2)">
-        ✨ Você desbloqueou: <strong>LEVEL UP 2026</strong>
-      </div>
-
-      <button id="printCert" class="print-btn">📄 Baixar Certificado (PDF)</button>
-
-      <div class="info" style="margin-top:12px; color:#aaa;">Mostre isso com orgulho — a professora Gêiciane acredita em você.</div>
-
-      <!-- CERTIFICADO VISUAL PARA PDF -->
-      <div class="certificate" id="cert">
-        <div class="cert-title">Certificado — LEVEL UP 2026</div>
-        <div class="cert-line">Aluno(a): <span id="certName">_________________________</span></div>
-        <div class="cert-line">Turma: 5º Ano</div>
-        <div class="cert-line">Data: 01 de dezembro de 2025</div>
-        <div class="cert-msg">
-          Parabéns, guerreiro(a)! 🏆 Você superou mais uma etapa com muito esforço e dedicação.
-          Que 2026 seja repleto de novos desafios, XP e conquistas. Continue brilhando e subindo de nível! 🌟
-        </div>
-      </div>
-    </div>
-
+    <div id="msgBox" class="message-box"></div>
   </div>
-</div>
 
-<script>
-  const startBtn = document.getElementById('startBtn');
-  const after = document.getElementById('after');
-  const cert = document.getElementById('cert');
-  const printCert = document.getElementById('printCert');
-  const studentNameInput = document.getElementById('studentName');
-  const certName = document.getElementById('certName');
+  <script>
+    const startBtn = document.getElementById("startBtn");
+    const msgBox = document.getElementById("msgBox");
+    const nameInput = document.getElementById("nameInput");
 
-  startBtn.addEventListener('click', () => {
-    const studentName = studentNameInput.value.trim();
-    certName.innerText = studentName || "_________________________";
+    startBtn.addEventListener("click", () => {
+      const name = nameInput.value.trim();
 
-    startBtn.style.display = 'none';
-    after.style.display = 'block';
-    cert.style.display = 'block';
-  });
+      if (name === "") {
+        alert("Digite seu nome para começar!");
+        return;
+      }
 
-  /* ---------------------------
-     PDF AUTOMÁTICO
-  --------------------------- */
-  printCert.addEventListener('click', async () => {
-    const { jsPDF } = window.jspdf;
-
-    html2canvas(cert, { scale: 4 }).then(canvas => {
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const imgProps = pdf.getImageProperties(imgData);
-      const imgHeight = (imgProps.height * pdfWidth) / imgProps.width;
-
-      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, imgHeight);
-      pdf.save("certificado_LEVELUP_2026.pdf");
+      msgBox.style.display = "block";
+      msgBox.innerHTML = `
+        <strong>${name}</strong>, você acaba de subir mais um nível! 🚀<br><br>
+        Continue evoluindo, aprendendo e acreditando no seu potencial.<br>
+        2026 vai ser O SEU ANO! 🌟🔥
+      `;
     });
-  });
-</script>
+  </script>
 
 </body>
 </html>
