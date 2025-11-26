@@ -1,180 +1,126 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Certificado Gamificado</title>
-
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>LEVEL UP! — Pixel Edition</title>
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        background: #121212;
-        color: #fff;
-        text-align: center;
-        padding: 20px;
-    }
-
-    h1 {
-        margin-bottom: 5px;
-    }
-
-    .input-area {
-        margin: 20px 0;
-    }
-
-    input {
-        padding: 10px;
-        width: 230px;
-        border-radius: 8px;
-        border: none;
-        text-align: center;
-        font-size: 16px;
-    }
-
-    .model-selector {
-        margin: 20px 0;
-    }
-
-    select {
-        padding: 10px;
-        border-radius: 8px;
-        font-size: 16px;
-        border: none;
-    }
-
-    .card {
-        background: #1e1e1e;
-        border: 3px solid #444;
-        border-radius: 12px;
-        width: 90%;
-        max-width: 420px;
-        margin: 25px auto;
-        padding: 20px;
-        display: none;
-    }
-
-    .pixel-heart {
-        font-size: 32px;
-        margin-bottom: 10px;
-    }
-
-    .xp {
-        font-size: 18px;
-        margin-top: 10px;
-        font-weight: bold;
-    }
-
-    /* MODELOS DIFERENTES */
-
-    /* Modelo 1 – Rosa */
-    .modelo1 {
-        border-color: #ff66b2;
-        background: #2a0f1f;
-    }
-
-    /* Modelo 2 – Azul neon */
-    .modelo2 {
-        border-color: #4db8ff;
-        background: #0d1a26;
-    }
-
-    /* Modelo 3 – Roxo gamer */
-    .modelo3 {
-        border-color: #b366ff;
-        background: #1a0d26;
-    }
-
-    /* Modelo 4 – Verde pixel */
-    .modelo4 {
-        border-color: #66ff99;
-        background: #0d2618;
-    }
-
+  :root{
+    --bg:#0b0b0c;
+    --accent:#eeae00ec;
+    --accent2:#990000;
+    --muted:#9aa1a8;
+  }
+  html,body{height:100%;margin:0;font-family: "Courier New", Courier, monospace;background: linear-gradient(180deg,#050505 0%, #0b0b0c 100%);color:var(--accent);display:flex;align-items:center;justify-content:center;}
+  .container{width:100%;max-width:780px;padding:28px;box-sizing:border-box;text-align:center;}
+  .pixel-title{font-size:48px;letter-spacing:6px;margin:6px 0;line-height:1;color:var(--accent2);text-shadow:
+    -2px -2px 0 #111, 2px 2px 0 #001, 4px 4px 0 rgba(0,0,0,0.6); font-weight:700;}
+  .subtitle{color:var(--muted);margin-bottom:18px;}
+  .screen{background: repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0 2px, transparent 2px 8px), 
+    linear-gradient(180deg, rgba(10,10,12,0.6), rgba(8,8,10,0.8)); padding:20px;border-radius:12px; box-shadow: 0 8px 30px rgba(0,0,0,0.7);}
+  /* pixel heart made with grid of squares */
+  .pixel-heart{width:160px;margin:12px auto 10px;display:grid;grid-template-columns:repeat(8,20px);grid-auto-rows:20px;gap:4px;justify-content:center;}
+  .pixel-heart div{width:20px;height:20px;box-shadow: inset 0 -2px 0 rgba(0,0,0,0.25);}
+  .on{background:var(--accent2);filter:drop-shadow(0 2px 0 rgba(0,0,0,0.5));}
+  .off{background:transparent;}
+  .message{font-size:18px;color:#fff;margin:8px 0 18px;}
+  .start-btn{display:inline-block;padding:12px 24px;border-radius:8px;background:linear-gradient(180deg,#3aff8a,#1dbf55);color:#022;font-weight:700;text-decoration:none;cursor:pointer;border:4px solid rgba(0,0,0,0.25);box-shadow:0 6px 0 rgba(0,0,0,0.4);transform:translateY(0);transition:transform .12s ease;}
+  .start-btn:active{transform:translateY(3px);box-shadow:0 3px 0 rgba(0,0,0,0.4);}
+  .info{color:var(--muted);font-size:13px;margin-top:12px;}
+  .pixel-style{font-family: monospace;background: linear-gradient(90deg,#101315,#0a0b0c);padding:8px;border-radius:6px;display:inline-block;color:var(--accent);}
+  /* confetti */
+  .confetti{position:fixed;inset:0;pointer-events:none;display:none;}
+  .confetti span{position:absolute;width:10px;height:14px;opacity:0;animation:fall 2200ms linear forwards;transform-origin:center;}
+  @keyframes fall{
+    0%{opacity:1; transform: translateY(-20px) rotate(0deg) scale(1);}
+    100%{opacity:1; transform: translateY(520px) rotate(720deg) scale(1);}
+  }
+  /* certificate */
+  .certificate{margin-top:18px;background:#fff;color:#111;padding:14px;border-radius:8px;text-align:left;display:none;}
+  .cert-title{font-weight:800;color:#222;font-size:18px;margin-bottom:6px;}
+  .cert-line{font-size:14px;margin:6px 0;color:#333;}
+  .print-btn{margin-top:8px;display:inline-block;padding:8px 12px;border-radius:6px;background:#222;color:#fff;text-decoration:none;}
+  /* small screens */
+  @media (max-width:420px){
+    .pixel-title{font-size:32px;}
+    .pixel-heart{transform:scale(0.9);}
+  }
 </style>
-
-<script>
-    function gerarCertificado() {
-        const nome = document.getElementById("nome").value.trim();
-        const modelo = document.getElementById("modelo").value;
-
-        if (nome === "") {
-            alert("Digite seu nome para gerar o certificado!");
-            return;
-        }
-
-        document.querySelectorAll(".card").forEach(c => c.style.display = "none");
-
-        const card = document.getElementById(modelo);
-        card.style.display = "block";
-
-        document.querySelectorAll(".nome-aluno").forEach(span => {
-            span.textContent = nome;
-        });
-    }
-</script>
-
 </head>
 <body>
+<div class="container">
+  <div class="screen">
+    <div class="pixel-title">LEVEL UP!</div>
+    <div class="subtitle">Pixel Edition — Parabéns por desbloquear 2025</div>
+    <div class="pixel-heart" aria-hidden="true">
+      <!-- 8x8 grid (use classes "on" for colored pixels) -->
+      <div class="on"></div><div class="on"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="on"></div><div class="on"></div>
+      <div class="on"></div><div class="on"></div><div class="on"></div><div class="off"></div><div class="off"></div><div class="on"></div><div class="on"></div><div class="on"></div>
+      <div class="off"></div><div class="on"></div><div class="on"></div><div class="on"></div><div class="on"></div><div class="on"></div><div class="on"></div><div class="off"></div>
+      <div class="off"></div><div class="off"></div><div class="on"></div><div class="on"></div><div class="on"></div><div class="on"></div><div class="off"></div><div class="off"></div>
+      <div class="off"></div><div class="off"></div><div class="off"></div><div class="on"></div><div class="on"></div><div class="off"></div><div class="off"></div><div class="off"></div>
+      <div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="on"></div><div class="off"></div><div class="off"></div><div class="off"></div>
+      <div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div>
+      <div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div>
+    </div>
 
-<h1>🎮 Certificado de Evolução</h1>
-<p>Digite seu nome, escolha um estilo e veja sua tela de conquista!</p>
+    <div class="message">🎉 <strong>Parabéns, jogador(a)!</strong> Você completou sua fase no 5º ano. Prepare-se para novas missões!</div>
 
-<div class="input-area">
-    <input type="text" id="nome" placeholder="Digite seu nome">
+    <button id="startBtn" class="start-btn pixel-style">▶ START</button>
+
+    <div id="after" style="display:none">
+      <div class="message" style="color:var(--accent2)">✨ Você desbloqueou: <strong>LEVEL UP 2026</strong></div>
+      <div class="info">Mostre isso com orgulho — a professora Gêiciane acredita em você.</div>
+      <div class="certificate" id="cert">
+              <div class="cert-line">🌟 Parabéns por concluir este ciclo escolar!
+           Você avançou, aprendeu, cresceu e mostrou que é capaz de ir ainda mais longe.
+          Continue acreditando no seu potencial e subindo de nível — o próximo capítulo 
+           da sua jornada será ainda mais incrível! 💫🎮❤️</div>
+      </div>
+    </div>
+
+  </div>
 </div>
 
-<div class="model-selector">
-    <select id="modelo">
-        <option value="m1">Modelo 1 – Rosa</option>
-        <option value="m2">Modelo 2 – Azul Neon</option>
-        <option value="m3">Modelo 3 – Roxo Gamer</option>
-        <option value="m4">Modelo 4 – Verde Pixel</option>
-    </select>
-</div>
+<div class="confetti" id="confetti"></div>
 
-<button onclick="gerarCertificado()" style="padding:12px 20px; font-size:16px; border:none; border-radius:10px; background:#ffcc00; cursor:pointer;">
-    Gerar Certificado
-</button>
+<script>
+  const startBtn = document.getElementById('startBtn');
+  const after = document.getElementById('after');
+  const confettiWrap = document.getElementById('confetti');
+  const cert = document.getElementById('cert');
+  const printCert = document.getElementById('printCert');
 
-<!-- MODELO 1 -->
-<div class="card modelo1" id="m1">
-    <div class="pixel-heart">💖</div>
-    <h2><span class="nome-aluno"></span>, você subiu de nível!</h2>
-    <p>Continue firme, forte e cheio(a) de coragem.<br>
-    2026 será incrível porque você está evoluindo! ✨<br><br>
-    A Prof. Gêiciane está muito orgulhosa de você! 🌟</p>
-    <div class="xp">+ 50 XP de Coragem</div>
-</div>
+  function spawnConfetti(){
+    confettiWrap.innerHTML='';
+    const colors = ['#ff3b3b','#ffd166','#6affb3','#74c0fc','#ff8fab','#d6a2ff'];
+    for(let i=0;i<24;i++){
+      const el = document.createElement('span');
+      el.style.left = Math.random()*100 + '%';
+      el.style.background = colors[Math.floor(Math.random()*colors.length)];
+      el.style.top = (-Math.random()*40 - 10) + 'px';
+      el.style.transform = 'rotate('+Math.random()*360+'deg)';
+      el.style.animationDelay = (Math.random()*600) + 'ms';
+      el.style.opacity = 1;
+      el.style.width = (8 + Math.random()*8)+'px';
+      el.style.height = (10 + Math.random()*10)+'px';
+      confettiWrap.appendChild(el);
+    }
+    confettiWrap.style.display='block';
+    setTimeout(()=>{ confettiWrap.style.display='none'; confettiWrap.innerHTML=''; }, 2600);
+  }
 
-<!-- MODELO 2 -->
-<div class="card modelo2" id="m2">
-    <div class="pixel-heart">💙</div>
-    <h2>Parabéns, <span class="nome-aluno"></span>!</h2>
-    <p>Você desbloqueou uma nova fase da vida!<br>
-    Continue acreditando no seu potencial.<br><br>
-    Prof. Gêiciane acredita muito em você! 💫</p>
-    <div class="xp">+ 80 XP de Determinação</div>
-</div>
-
-<!-- MODELO 3 -->
-<div class="card modelo3" id="m3">
-    <div class="pixel-heart">💜</div>
-    <h2>Nível Up! <span class="nome-aluno"></span> avançou!</h2>
-    <p>Seu caminho será cheio de conquistas e vitórias.<br>
-    Nunca pare de evoluir!<br><br>
-    Prof. Gêiciane está torcendo por você! 🚀</p>
-    <div class="xp">+ 120 XP de Sabedoria</div>
-</div>
-
-<!-- MODELO 4 -->
-<div class="card modelo4" id="m4">
-    <div class="pixel-heart">💚</div>
-    <h2>Você brilhou, <span class="nome-aluno"></span>!</h2>
-    <p>Com coragem e esforço, tudo se transforma.<br>
-    A vida te espera com coisas incríveis!<br><br>
-    Com carinho, Prof. Gêiciane. 🌱</p>
-    <div class="xp">+ 60 XP de Esperança</div>
-</div>
-
+  startBtn.addEventListener('click', function(){
+    // small pulse and then show after content
+    startBtn.disabled = true;
+    startBtn.innerText = 'Carregando...';
+    setTimeout(()=>{
+      startBtn.style.display='none';
+      after.style.display='block';
+      spawnConfetti();
+      cert.style.display='block';
+    }, 900);
+  });
+</script>
 </body>
 </html>
