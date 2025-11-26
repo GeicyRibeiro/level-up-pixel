@@ -156,6 +156,12 @@
     <div class="pixel-title">LEVEL UP!</div>
     <div class="subtitle">Pixel Edition — Parabéns por desbloquear 2025</div>
 
+    <!-- Input para o nome do aluno -->
+    <div>
+      <label for="studentName" style="color:var(--accent2); font-size: 18px; margin-bottom: 8px; display: block;">Digite seu nome:</label>
+      <input type="text" id="studentName" placeholder="Nome do aluno" style="padding:10px; font-size:16px; border-radius:6px; border:2px solid var(--accent); width: 80%; margin-bottom: 20px;">
+    </div>
+
     <!-- ❤️ pixel heart vermelho -->
     <div class="pixel-heart" aria-hidden="true">
       <div class="on"></div><div class="on"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="on"></div><div class="on"></div>
@@ -164,7 +170,6 @@
       <div class="off"></div><div class="off"></div><div class="on"></div><div class="on"></div><div class="on"></div><div class="on"></div><div class="off"></div><div class="off"></div>
       <div class="off"></div><div class="off"></div><div class="off"></div><div class="on"></div><div class="on"></div><div class="off"></div><div class="off"></div><div class="off"></div>
       <div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="on"></div><div class="off"></div><div class="off"></div><div class="off"></div>
-      <div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div>
       <div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div><div class="off"></div>
     </div>
 
@@ -186,10 +191,10 @@
       <!-- ESTA DIV PRECISA ESTAR AQUI DENTRO -->
       <div class="certificate" id="cert">
         <div class="cert-title">Certificado — LEVEL UP 2025</div>
-        <div class="cert-line">Aluno(a): ____________________________</div>
+        <div class="cert-line">Aluno(a): <span id="certName">_________________________</span></div>
         <div class="cert-line">Turma: 5º Ano</div>
-        <div class="cert-line">Data: ____ / ____ / 2025</div>
-        <div class="cert-line">Observação: Parabéns por concluir este ciclo escolar. Continue subindo de nível!</div>
+        <div class="cert-line">Data: 01 / 12 / 2025</div>
+        <div class="cert-line">Observação: Parabéns, guerreiro(a)! 🏆 Você superou mais uma etapa com muito esforço e dedicação. Este é só o começo de uma jornada incrível. Que 2026 seja repleto de novos desafios e conquistas. Continue brilhando e subindo de nível! 🌟</div>
       </div>
     </div>
 
@@ -204,6 +209,8 @@
   const cert = document.getElementById('cert');
   const confettiWrap = document.getElementById('confetti');
   const printCert = document.getElementById('printCert');
+  const studentNameInput = document.getElementById('studentName');
+  const certName = document.getElementById('certName');
 
   function spawnConfetti(){
     confettiWrap.innerHTML='';
@@ -221,16 +228,20 @@
   }
 
   startBtn.addEventListener('click', () => {
+    const studentName = studentNameInput.value.trim();
+    if (studentName) {
+      certName.innerText = studentName; // Atualiza o nome no certificado
+    } else {
+      certName.innerText = "_________________________"; // Caso o aluno não preencha o nome
+    }
+
     startBtn.disabled = true;
     startBtn.innerText = 'Carregando...';
 
     setTimeout(() => {
       startBtn.style.display = 'none';
-
-      // ESTA LINHA MOSTRA TUDO
       after.style.display = 'block';
       cert.style.display = 'block';
-
       spawnConfetti();
     }, 900);
   });
@@ -250,10 +261,10 @@
       <body>
         <div class="box">
           <h1>Certificado — LEVEL UP 2025</h1>
-          <p class="muted">Aluno(a): ____________________________</p>
+          <p class="muted">Aluno(a): ${studentName}</p>
           <p class="muted">Turma: 5º Ano</p>
-          <p class="muted">Data: ____ / ____ / 2025</p>
-          <p>Parabéns por concluir este ciclo escolar. Continue subindo de nível!</p>
+          <p class="muted">Data: 01 / 12 / 2025</p>
+          <p>Parabéns, guerreiro(a)! 🏆 Você superou mais uma etapa com muito esforço e dedicação. Este é só o começo de uma jornada incrível. Que 2026 seja repleto de novos desafios e conquistas. Continue brilhando e subindo de nível! 🌟</p>
         </div>
       </body></html>`;
     win.document.write(html);
